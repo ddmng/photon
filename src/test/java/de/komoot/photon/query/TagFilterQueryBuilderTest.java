@@ -41,6 +41,8 @@ public class TagFilterQueryBuilderTest {
 	String actualJsonString = new QueryToJson().convert(photonQueryBuilder.buildQuery());
 	JsonNode actualJson = this.readJson(actualJsonString);
 	JsonNode expectedJson = this.readJson(expectedJsonString);
+	System.out.println("====== expected " + expectedJson);
+	System.out.println("====== actual   " + actualJson);
 	Assert.assertEquals(expectedJson, actualJson);
     }
 

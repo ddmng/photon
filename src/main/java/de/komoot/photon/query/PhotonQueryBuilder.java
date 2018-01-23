@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.elasticsearch.common.lucene.search.function.CombineFunction;
-import org.elasticsearch.common.lucene.search.function.FiltersFunctionScoreQuery.ScoreMode;
+import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.common.unit.Fuzziness;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.MatchQueryBuilder;
@@ -21,7 +21,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.TermQueryBuilder;
 import org.elasticsearch.index.query.TermsQueryBuilder;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder.FilterFunctionBuilder;
+import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder.*;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.index.query.functionscore.ScriptScoreFunctionBuilder;
 import org.elasticsearch.script.Script;
@@ -97,7 +97,7 @@ public class PhotonQueryBuilder implements TagFilterQueryBuilder {
 		m_alFilterFunction4QueryBuilder.add(new FilterFunctionBuilder(functionBuilder4QueryBuilder));
 
 		m_finalQueryWithoutTagFilterBuilder = new FunctionScoreQueryBuilder(m_query4QueryBuilder, m_alFilterFunction4QueryBuilder.toArray(new FilterFunctionBuilder[0]))
-				.boostMode(CombineFunction.MULTIPLY).scoreMode(ScoreMode.MULTIPLY);
+				.boostMode(CombineFunction.MULTIPLY).scoreMode(FunctionScoreQuery.ScoreMode.MULTIPLY);
 
 	// @formatter:off
 	m_queryBuilderForTopLevelFilter = QueryBuilders.boolQuery()
@@ -155,7 +155,7 @@ public class PhotonQueryBuilder implements TagFilterQueryBuilder {
 
 			m_finalQueryWithoutTagFilterBuilder =
 					new FunctionScoreQueryBuilder(m_query4QueryBuilder, m_alFilterFunction4QueryBuilder.toArray(new FilterFunctionBuilder[0]))
-							.boostMode(CombineFunction.REPLACE).scoreMode(ScoreMode.MULTIPLY);
+							.boostMode(CombineFunction.REPLACE).scoreMode(FunctionScoreQuery.ScoreMode.MULTIPLY);
 
 		}
 		else {
@@ -164,7 +164,7 @@ public class PhotonQueryBuilder implements TagFilterQueryBuilder {
 
 			m_finalQueryWithoutTagFilterBuilder =
 					new FunctionScoreQueryBuilder(m_query4QueryBuilder, m_alFilterFunction4QueryBuilder.toArray(new FilterFunctionBuilder[0]))
-							.boostMode(CombineFunction.MULTIPLY).scoreMode(ScoreMode.MULTIPLY);
+							.boostMode(CombineFunction.MULTIPLY).scoreMode(FunctionScoreQuery.ScoreMode.MULTIPLY);
 		}
 
 		return this;
